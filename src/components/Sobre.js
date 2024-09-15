@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import './Sobre.css'; // Certifique-se de que o caminho está correto
 
 function Sobre() {
   return (
@@ -57,6 +58,10 @@ function Sobre() {
           </Button>
         </Col>
       </Row>
+
+      <footer className="footer">
+        Projeto feito pelos alunos da pós da FIAP 2024 do curso de Dev Foundations grupo 4
+      </footer>
     </Container>
   );
 }

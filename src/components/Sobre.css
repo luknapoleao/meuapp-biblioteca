@@ -1,0 +1,11 @@
+/* src/components/Sobre.css */
+.footer {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f1f1f1;
+    color: #6c757d;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}

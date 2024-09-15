@@ -1,0 +1,92 @@
+/* App.css */
+.App {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+.Nav {
+    margin-bottom: 20px;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+}
+
+.nav-link {
+    border-radius: 30px;
+    padding: 10px 20px;
+    color: #495057;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    background-color: #e9ecef;
+    color: #212529;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.search-container {
+    position: relative;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 20px;
+    border: 2px solid #ced4da;
+    border-radius: 30px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
+}
+/* Sobre.css */
+
+.footer {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f1f1f1;
+    color: #6c757d;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
