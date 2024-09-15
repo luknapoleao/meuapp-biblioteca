@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Form } from "react-bootstrap";
+import { Table, Button, Form, Modal } from "react-bootstrap";
 
 class Livros extends React.Component {
   constructor(props) {
@@ -11,7 +11,8 @@ class Livros extends React.Component {
       nomeDoLivro: "",
       autor: "",
       editora: "",
-      editando: false // Estado para saber se está no modo de edição
+      editando: false, // Estado para saber se está no modo de edição
+      showModal: false // Controla o estado do modal
     };
   }
 
@@ -39,30 +40,27 @@ class Livros extends React.Component {
     this.setState({ livros: livrosAtualizados });
   }
 
-  // Função para carregar os dados do livro no formulário para edição
   editarLivro = (livro) => {
     this.setState({
       livroParaEditar: livro.id,
       nomeDoLivro: livro.nomeDoLivro,
       autor: livro.autor,
       editora: livro.editora,
-      editando: true
+      editando: true,
+      showModal: true // Abre o modal para edição
     });
   }
 
-  // Função para manipular a alteração nos inputs do formulário
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  // Função para adicionar um novo livro
   adicionarLivro = (event) => {
     event.preventDefault();
     const { livros, nomeDoLivro, autor, editora } = this.state;
 
-    // Cria um novo livro com um id único
     const novoLivro = {
-      id: Date.now(), // Usando o timestamp como ID temporário
+      id: Date.now(),
       nomeDoLivro,
       autor,
       editora
@@ -73,11 +71,11 @@ class Livros extends React.Component {
       nomeDoLivro: "",
       autor: "",
       editora: "",
-      editando: false
+      editando: false,
+      showModal: false // Fecha o modal ao adicionar
     });
   };
 
-  // Função para limpar o formulário e preparar para adicionar um novo livro
   limparFormulario = () => {
     this.setState({
       livroParaEditar: null,
@@ -88,7 +86,6 @@ class Livros extends React.Component {
     });
   };
 
-  // Função para atualizar o livro após a edição
   atualizarLivro = (event) => {
     event.preventDefault();
     const { livroParaEditar, nomeDoLivro, autor, editora, livros } = this.state;
@@ -111,66 +108,34 @@ class Livros extends React.Component {
       nomeDoLivro: "",
       autor: "",
       editora: "",
+      editando: false,
+      showModal: false // Fecha o modal ao atualizar
+    });
+  };
+
+  handleShow = () => {
+    this.setState({
+      showModal: true,
+      nomeDoLivro: "",
+      autor: "",
+      editora: "",
       editando: false
     });
   };
 
+  handleClose = () => {
+    this.setState({ showModal: false });
+  };
+
   render() {
-    const { livros, nomeDoLivro, autor, editora, editando } = this.state;
+    const { livros, nomeDoLivro, autor, editora, editando, showModal } = this.state;
 
     return (
       <div>
         <h3>{editando ? "Editar Livro" : "Adicionar Livro"}</h3>
-        <Form onSubmit={editando ? this.atualizarLivro : this.adicionarLivro}>
-          <Form.Group controlId="formNomeDoLivro">
-            <Form.Label>Nome do Livro</Form.Label>
-            <Form.Control
-              type="text"
-              name="nomeDoLivro"
-              value={nomeDoLivro}
-              onChange={this.handleChange}
-              placeholder="Digite o nome do livro"
-              required
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formAutor">
-            <Form.Label>Autor</Form.Label>
-            <Form.Control
-              type="text"
-              name="autor"
-              value={autor}
-              onChange={this.handleChange}
-              placeholder="Digite o nome do autor"
-              required
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formEditora">
-            <Form.Label>Editora</Form.Label>
-            <Form.Control
-              type="text"
-              name="editora"
-              value={editora}
-              onChange={this.handleChange}
-              placeholder="Digite o nome da editora"
-              required
-            />
-          </Form.Group>
-
-          <div className="d-flex align-items-center">
-            <Button variant="success" type="submit">
-              {editando ? "Atualizar Livro" : "Adicionar Livro"}
-            </Button>
-            <Button 
-              variant="warning" 
-              className="ml-2" // Adiciona um espaço ao lado
-              onClick={this.limparFormulario}
-            >
-              Novo Livro
-            </Button>
-          </div>
-        </Form>
+        <Button variant="warning" onClick={this.handleShow}>
+          Novo Livro
+        </Button>
 
         <h3>Lista de Livros</h3>
         <Table striped bordered hover>
@@ -202,6 +167,60 @@ class Livros extends React.Component {
             ))}
           </tbody>
         </Table>
+
+        <Modal show={showModal} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>{editando ? "Editar Livro" : "Adicionar Livro"}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={editando ? this.atualizarLivro : this.adicionarLivro}>
+              <Form.Group controlId="formNomeDoLivro">
+                <Form.Label>Nome do Livro</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="nomeDoLivro"
+                  value={nomeDoLivro}
+                  onChange={this.handleChange}
+                  placeholder="Digite o nome do livro"
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formAutor">
+                <Form.Label>Autor</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="autor"
+                  value={autor}
+                  onChange={this.handleChange}
+                  placeholder="Digite o nome do autor"
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formEditora">
+                <Form.Label>Editora</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="editora"
+                  value={editora}
+                  onChange={this.handleChange}
+                  placeholder="Digite o nome da editora"
+                  required
+                />
+              </Form.Group>
+
+              <Button variant="primary" type="submit">
+                {editando ? "Salvar Alterações" : "Adicionar Livro"}
+              </Button>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Fechar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
